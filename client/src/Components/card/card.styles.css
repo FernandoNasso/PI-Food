@@ -1,0 +1,45 @@
+.container {
+  flex: 0 0 calc(15%);
+   margin: auto;
+   justify-content: center;
+   font-size: 10px;
+   justify-items: center;
+   border-radius: 10px;
+   padding: 1em;
+   box-shadow: 10px 10px 5px 0px rgba(255, 0, 0, 0.75);
+   text-shadow: 3px 4px 5px rgb(4, 57, 1);
+   color: rgb(255, 255, 255);
+   text-align: center;
+}
+
+img {
+  width: 100%; /* Establece un ancho fijo */
+  height: 200px; /* Ajusta la altura según tu diseño */
+  object-fit: cover;
+}
+
+h2 {
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #888;
+}
+
+Link {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

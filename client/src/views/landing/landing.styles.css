@@ -1,0 +1,41 @@
+/* Ajustamos el estilo de la página de inicio */
+.landing-container {
+    height: 100vh; /* Ocupará todo el alto de la pantalla */
+    /* background-image: url('URL_DE_LA_IMAGEN_DE_FONDO'); Reemplazar por la URL de la imagen de fondo */
+    background-size: cover; /* Para que la imagen ocupe todo el fondo */
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+   
+  .landing-content {
+    text-align: center;
+    color: #070000;
+  }
+  
+  h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+  
+  .landing-button {
+    padding: 15px 30px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .landing-button:hover {
+    background-color: #0056b3;
+  }

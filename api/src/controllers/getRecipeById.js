@@ -1,35 +1,42 @@
-const { Recipe, Diets } = require("../db");
+const { Recipe } = require("../db");
 const axios = require("axios");
 const { API_KEY, URL_BASE } = process.env;
-require('dotenv').config();
+
 
 const getRecipeById = async (req, res) => {
   try {
-    const { id } = req.params; 
-    const recipeFromDB = await Recipe.findByPk(id); //búsqueda en la base de datos local utilizando Sequelize (Recipe.findByPk).
-  
-    if (recipeFromDB) { 
-      return res.status(200).json(recipeFromDB); // Devolver la receta encontrada en la base de datos
-    }
-    // Si no encontramos recetas en la base de datos, hacemos una solicitud a la API
-    const { data } = await axios.get(`${URL_BASE}${id}/information?apiKey=${API_KEY}&addRecipeInformation=true`);
-    // if (!data || data.code === 404) {
-    //   return res.status(404).json({error: "No existe receta con ese ID"})
-  
-    const recipe = {
+    const { idRecipe } = req.params;
+
+    // Intentamos buscar la receta en la base de datos local por ID
+    const recipeFromDB = await Recipe.findByPk(idRecipe);
+
+    if (recipeFromDB) {
+      // Si la receta se encuentra en la base de datos local, la devolvemos
+      return res.status(200).json(recipeFromDB);
+    } else {
+      // Si la receta no está en la base de datos local, la buscamos en la API
+      const { data } = await axios.get(
+        `${URL_BASE}/${idRecipe}/information?apiKey=${API_KEY}&addRecipeInformation=true`
+      );
+
+      // Procesamos la receta de la API
+      const recipeFromAPI = {
         id: data.id,
-        name: data.title,
-        image: data.image,
-        summary: data.summary,
-        healthScore: data.healthScore,
-        steps: data.instructions,
-        diets: data.diets,
+        name: data.title ?? 'Nombre no disponible',
+        summary: data.summary ?? 'Resumen no disponible',
+        healthScore: data.healthScore ?? 'Puntaje de salud no disponible',
+        steps: data.analyzedInstructions?.[0]?.steps ?? [],
+        image: data.image ?? '',
+        diets: data.diets ?? [],
       };
-      return res.status(200).json({ recipe });
-    
+
+      // Devolvemos la receta obtenida de la API
+      return res.status(200).json(recipeFromAPI);
+    }
   } catch (error) {
-    return res.status(500).json({ error: "No existe receta con ese ID" });
-  } 
+    return res.status(500).json({ error: "Error al obtener la receta" });
+  }
 };
 
+// Exporta la función para obtener el detalle de una receta por ID
 module.exports = getRecipeById;

@@ -1,53 +1,36 @@
-// Controlador para crear una nueva receta y relacionarla con tipos de dieta
-const { Recipe, Diets, RecipeDiets } = require('../db');
+const { Recipe, Diets } = require('../db'); // Importa los modelos Recipe y Diets desde db.js
 
+// Controlador para crear una nueva receta
 const postRecipe = async (req, res) => {
+  const { name, summary, healthScore, steps, image, selectedDiets } = req.body; // Obtiene los datos del formulario enviados desde el cliente
+
   try {
-    const {
-      name,
-      image,
-      summary,
-      healthScore,
-      steps,
-      diets, // Este será un array de nombres de los tipos de dieta solicitados
-    } = req.body;
 
-    // Verificar que se proporcionen todos los datos necesarios
-    if (!name || !image || !summary || !healthScore || !steps || !diets) {
-      return res.status(400).json({ error: "Todos los campos son requeridos" });
-    }
-
-    // Verificar que los tipos de dieta existan en la base de datos
-    const existingDiets = await Diets.findAll({
-      where: { name: diets },
-    });
-
-    if (existingDiets.length !== diets.length) {
-      return res.status(400).json({ error: "Uno o más tipos de dieta proporcionados no existen" });
-    }
-
-    // Crear la receta en la base de datos
+    const stepsArray = Array.isArray(steps) ? steps : [steps];
+    // Crea la nueva receta en la base de datos utilizando el modelo Recipe
     const newRecipe = await Recipe.create({
       name,
-      image,
       summary,
       healthScore,
-      steps,
+      steps: stepsArray,
+      image,
     });
 
-    // Relacionar la receta con los tipos de dieta
-    await Promise.all(
-      existingDiets.map((diet) =>
-        RecipeDiets.create({
-          recipeId: newRecipe.id,
-          dietId: diet.id,
-        })
-      )
-    );
+    // Asocia las dietas seleccionadas con la receta creada
+    if (selectedDiets && selectedDiets.length > 0) {
+      const diets = await Diets.findAll({
+        where: { name: selectedDiets }, // Busca las dietas seleccionadas en la base de datos
+      });
 
-    return res.status(201).json({ recipe: newRecipe });
+      // Asocia las dietas encontradas con la receta creada
+      await newRecipe.addDiets(diets);
+    }
+
+    // Retorna la nueva receta creada como respuesta
+    return res.status(201).json(newRecipe);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error('Error creating recipe:', error);
+    return res.status(500).json({ error: 'Error creating recipepepe' });
   }
 };
 

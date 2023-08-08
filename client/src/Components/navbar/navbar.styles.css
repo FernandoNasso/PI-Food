@@ -1,0 +1,35 @@
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #ec1717;
+}
+
+.navbar-container h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.navbar-container form {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-container input[type="text"] {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.navbar-container button {
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}

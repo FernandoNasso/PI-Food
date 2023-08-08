@@ -1,51 +1,52 @@
-const axios = require('axios');
-const { Recipe, Diets } = require('../db');
+const axios = require("axios");
+const { Recipe } = require("../db");
+const { Op } = require("sequelize");
 const { API_KEY, URL_BASE } = process.env;
-const { Op } = require('sequelize');
-
 
 const searchRecipeByName = async (req, res) => {
   try {
+    // Obtenemos el nombre de la receta desde el query de la solicitud
     const { name } = req.query;
 
-    // Buscamos las recetas por nombre en la base de datos
+    // Buscamos las recetas en la base de datos local que coincidan con el nombre
     const recipesFromDB = await Recipe.findAll({
-        where: { name: { [Op.iLike]: `%${name}%` }},
-           include: Diets,
-        });
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`, // Realiza una búsqueda case-insensitive (ignorando mayúsculas y minúsculas)
+        },
+      },
+    });
 
-    if (recipesFromDB.length > 0) {
-      // Si encontramos recetas en la base de datos, las devolvemos
-      return res.status(200).json(recipesFromDB);
-    }
-
-    // Si no encontramos recetas en la base de datos, hacemos una solicitud a la API
-    const response = await axios.get(`${URL_BASE}/complexSearch?query=${name}&apiKey=${API_KEY}`);
-    
-    // Si la API responde correctamente, creamos y guardamos las recetas en la base de datos
-    const newRecipes = await Promise.all(
-      response.data.results.map((data) => {
-        return {
-          id: data.id,
-          name: data.title,
-          image: data.image,
-          summary: data.summary,
-          healthScore: data.healthScore,
-          steps: data.analyzedInstructions[0] ? data.analyzedInstructions[0].steps.map((step) => step.step) : [],
-          diets: data.diets,
-        };
-      })
+    // Buscamos las recetas en la API que coincidan con el nombre
+    const { data } = await axios.get(
+      `${URL_BASE}/complexSearch?apiKey=${API_KEY}&query=${name}&number=100`
     );
-    if (newRecipes.length > 0) {
-      return res.status(200).json({ recipes: newRecipes });
+
+    // Procesamos las recetas de la API
+    const recipesFromAPI = data.results.map((recipe) => ({
+      id: recipe.id,
+        name: recipe.title ?? 'Nombre no disponible',
+        summary: recipe.summary ?? 'Resumen no disponible',
+        healthScore: recipe.healthScore ?? 'Puntaje de salud no disponible',
+        steps: recipe.analyzedInstructions?.[0]?.steps ?? [],
+        image: recipe.image ?? '',
+        diets: recipe.diets ?? [],
+    }));
+
+    // Combinamos las recetas de la base de datos local con las de la API
+    const allRecipes = [...recipesFromDB, ...recipesFromAPI];
+
+    if (allRecipes.length === 0) {
+      // Si no se encontraron recetas, devolvemos un mensaje de error con un código de estado 404
+      return res.status(404).json({ error: "No se encontraron recetas" });
     }
-  
-      // Si no se encontraron recetas en la API ni en la base de datos, devolvemos un mensaje adecuado
-      return res.status(404).json({ error: "No se encontraron recetas con ese nombre" });
-  
-    } catch (error) {
-      return res.status(500).json({ error: error.message });
-    }
-  };
-  
-  module.exports = searchRecipeByName;
+
+    // Devolvemos todas las recetas encontradas
+    return res.status(200).json(allRecipes);
+  } catch (error) {
+    // Si se produce algún error durante el proceso, respondemos con un mensaje de error con un código de estado 500
+    return res.status(500).json({ error: "Error al buscar las recetas" });
+  }
+};
+
+module.exports = searchRecipeByName;

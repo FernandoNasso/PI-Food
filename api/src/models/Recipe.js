@@ -1,12 +1,13 @@
 const { DataTypes } = require('sequelize');
-const { v4: uuidv4 } = require('uuid'); // Importa la función v4 de uuid
+//const { v4: uuidv4 } = require('uuid'); // Importa la función v4 de uuid
 
 module.exports = (sequelize) => {
   const Recipe = sequelize.define('recipe', {
     id: {
       type: DataTypes.UUID, // Cambia el tipo a UUID
-      defaultValue: DataTypes.UUIDV4, // Genera un UUID automáticamente
+      allowNull: false,
       primaryKey: true,
+      defaultValue: DataTypes.UUIDV4, // Genera un UUID automáticamente
     },
     name: {
       type: DataTypes.STRING,

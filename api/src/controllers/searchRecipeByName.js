@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { Recipe } = require("../db");
+const { Recipe, Diets } = require("../db");
 const { Op } = require("sequelize");
 const { API_KEY, URL_BASE } = process.env;
 
@@ -12,26 +12,42 @@ const searchRecipeByName = async (req, res) => {
     const recipesFromDB = await Recipe.findAll({
       where: {
         name: {
-          [Op.iLike]: `%${name}%`, // Realiza una búsqueda case-insensitive (ignorando mayúsculas y minúsculas)
+          [Op.iLike]: `%${name}%`,
         },
       },
+      include: Diets, // Incluir la relación con Diets
     });
 
     // Buscamos las recetas en la API que coincidan con el nombre
     const { data } = await axios.get(
-      `${URL_BASE}/complexSearch?apiKey=${API_KEY}&query=${name}&number=100`
+      `${URL_BASE}/complexSearch?apiKey=${API_KEY}&query=${name}&number=100&addRecipeInformation=true`
     );
 
     // Procesamos las recetas de la API
-    const recipesFromAPI = data.results.map((recipe) => ({
-      id: recipe.id,
-        name: recipe.title ?? 'Nombre no disponible',
-        summary: recipe.summary ?? 'Resumen no disponible',
-        healthScore: recipe.healthScore ?? 'Puntaje de salud no disponible',
-        steps: recipe.analyzedInstructions?.[0]?.steps ?? [],
-        image: recipe.image ?? '',
-        diets: recipe.diets ?? [],
-    }));
+    const recipesFromAPI = data.results.map((recipe) => {
+      const diets = [...recipe.diets];
+
+  // Verificar y agregar las dietas adicionales
+  if (recipe.vegetarian) {
+    diets.push("vegetarian");
+  }
+  if (recipe.vegan) {
+    diets.push("vegan");
+  }
+  if (recipe.glutenFree) {
+    diets.push("gluten free");
+  }
+
+  return {
+    id: recipe.id,
+    name: recipe.title ?? 'Nombre no disponible',
+    summary: recipe.summary ?? 'Resumen no disponible',
+    healthScore: recipe.healthScore ?? 'Puntaje de salud no disponible',
+    steps: recipe.analyzedInstructions?.[0]?.steps ?? [],
+    image: recipe.image ?? '',
+    diets: diets, 
+  };
+});
 
     // Combinamos las recetas de la base de datos local con las de la API
     const allRecipes = [...recipesFromDB, ...recipesFromAPI];

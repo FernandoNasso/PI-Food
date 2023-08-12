@@ -1,16 +1,12 @@
+// recipeActions.js
 import axios from 'axios';
 import { GET_RECIPES, CREATE_RECIPE, SEARCH_RECIPES } from './actionTypes';
 
 // Acción para obtener las recetas desde el backend
-export const getRecipes = (currentPage, recipesPerPage) => {
+export const getRecipes = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:3001/recipes', {
-        params: {
-          currentPage: currentPage,
-          recipesPerPage: recipesPerPage
-        }
-      });
+      const response = await axios.get('http://localhost:3001/recipes');
       const recipes = response.data;
       dispatch({ type: GET_RECIPES, payload: recipes });
       return recipes;
@@ -21,22 +17,16 @@ export const getRecipes = (currentPage, recipesPerPage) => {
 };
 
 // Acción para crear una nueva receta en el backend
-export const createRecipe = (formData) => async (dispatch) => {
+export const createRecipe = (recipeData) => async (dispatch) => {
   try {
-    // Maneja el campo "steps" como un array antes de enviarlo al backend
-    formData.steps = formData.steps.split('\n'); // los pasos se almacenan como un array separado por saltos de línea
-    // Realizamos una solicitud POST al backend para crear la nueva receta
-    const response = await axios.post("http://localhost:3001/recipes", formData);
-
-    // Una vez creada la receta, podemos obtener la nueva receta del backend
+    const response = await axios.post('http://localhost:3001/recipes', recipeData);
     const newRecipe = response.data;
-
-    // Luego, actualizamos el estado global con la nueva receta
     dispatch({ type: CREATE_RECIPE, payload: newRecipe });
   } catch (error) {
-    console.error('fffError creating recipe:', error);
+    console.error('Error creating recipe:', error);
   }
 };
+
 
 export const searchRecipesByName = (query) => async (dispatch) => {
   try {
@@ -50,6 +40,3 @@ export const searchRecipesByName = (query) => async (dispatch) => {
     console.error('Error searching recipes:', error);
   }
 };
-
-
-

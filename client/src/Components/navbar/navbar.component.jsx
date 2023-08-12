@@ -18,7 +18,7 @@ function Navbar() {
           <SearchBar />
         </div>
       )}
-      <Link to="/form">
+      <Link to="/create">
       {!isCreateFormRoute && (
         <button>Crear Nueva Receta</button>
       )}

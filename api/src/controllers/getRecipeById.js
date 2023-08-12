@@ -1,42 +1,56 @@
-const { Recipe } = require("../db");
+const { Recipe, Diets } = require("../db");
 const axios = require("axios");
 const { API_KEY, URL_BASE } = process.env;
 
-
 const getRecipeById = async (req, res) => {
+  const { idRecipe } = req.params;
+
   try {
-    const { idRecipe } = req.params;
+    // Check if idRecipe is a valid UUID
+    const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(idRecipe);
 
-    // Intentamos buscar la receta en la base de datos local por ID
-    const recipeFromDB = await Recipe.findByPk(idRecipe);
+    if (isUuid) {
+      // Search in the database by UUID
+      const recipe = await Recipe.findByPk(idRecipe, {
+        include: [{ model: Diets, through: { attributes: [] } }],
+      });
 
-    if (recipeFromDB) {
-      // Si la receta se encuentra en la base de datos local, la devolvemos
-      return res.status(200).json(recipeFromDB);
-    } else {
-      // Si la receta no está en la base de datos local, la buscamos en la API
-      const { data } = await axios.get(
-        `${URL_BASE}/${idRecipe}/information?apiKey=${API_KEY}&addRecipeInformation=true`
-      );
+      if (!recipe) {
+        return res.status(404).json({ message: 'Recipe not found in the database' });
+      }
+        // Formatea y envía la respuesta para receta en la base de datos
+        const formattedRecipe = {
+          id: recipe.id,
+          name: recipe.name,
+          image: recipe.image,
+          summary: recipe.summary,
+          healthScore: recipe.healthScore,
+          steps: recipe.steps,
+          diets: recipe.diets.map(diet => diet.name),
+        };
 
-      // Procesamos la receta de la API
-      const recipeFromAPI = {
-        id: data.id,
-        name: data.title ?? 'Nombre no disponible',
-        summary: data.summary ?? 'Resumen no disponible',
-        healthScore: data.healthScore ?? 'Puntaje de salud no disponible',
-        steps: data.analyzedInstructions?.[0]?.steps ?? [],
-        image: data.image ?? '',
-        diets: data.diets ?? [],
-      };
+        return res.json(formattedRecipe);
+      } else {
+      // Search in the API by ID
+      const response = await axios.get(`${URL_BASE}/${idRecipe}/information?apiKey=${API_KEY}&addRecipeInformation=true`);
+      const apiRecipe = response.data;
 
-      // Devolvemos la receta obtenida de la API
-      return res.status(200).json(recipeFromAPI);
+    // Formatea los datos de la receta de la API según tu modelo
+    const formattedRecipe = {
+      id: apiRecipe.id,
+      name: apiRecipe.title,
+      image: apiRecipe.image,
+      summary: apiRecipe.summary,
+      healthScore: apiRecipe.healthScore,
+      steps: apiRecipe.analyzedInstructions.length > 0 ? apiRecipe.analyzedInstructions[0].steps.map(step => step.step) : [],
+      diets: [...new Set([...(apiRecipe.diets || []), ...(apiRecipe.vegetarian ? ['vegetarian'] : []), ...(apiRecipe.vegan ? ['vegan'] : []), ...(apiRecipe.glutenFree ? ['gluten free'] : [])])],    };
+
+    return res.json(formattedRecipe);
     }
   } catch (error) {
-    return res.status(500).json({ error: "Error al obtener la receta" });
+    console.error('Error fetching recipe by ID:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-// Exporta la función para obtener el detalle de una receta por ID
 module.exports = getRecipeById;

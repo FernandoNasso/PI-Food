@@ -8,20 +8,21 @@ import Create from './views/create/create.component';
 import Landing from './views/landing/landing.component';
 import SearchResults from './views/searchResults/searchResults.component'; // Importamos el componente SearchResults
 import { getRecipes } from './Redux/actions/recipeActions'; // Importamos la acción getRecipes
-import { getDiets } from './Redux/actions/dietActions'; // Importamos la acción getDiets
+// import { getDiets } from './Redux/actions/dietActions'; // Importamos la acción getDiets
 
 function App() {
-  const [recipes, setRecipes] = useState([]); // Agregamos estado local para recipes
-  const [diets, setDiets] = useState([]); // Agregamos estado local para diets
+  const [recipes, setRecipes] = useState([]); // Agregamos estado local para alamacenar recipes
+  // const [diets, setDiets] = useState([]); // Agregamos estado local para almacenar diets
   
   useEffect(() => {
     async function fetchData() {
       try {
+        // Obtenemos recetas y dietas usando Redux
         const recipesResponse = await store.dispatch(getRecipes());
-        const dietsResponse = await store.dispatch(getDiets());
-
+        // const dietsResponse = await store.dispatch(getDiets());
+         // Actualizamos los estados locales con las respuestas
         setRecipes(recipesResponse);
-        setDiets(dietsResponse);
+        // setDiets(dietsResponse);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -36,7 +37,7 @@ function App() {
         <Route path='/' element={<Landing />} />
         <Route exact path='/home' element={<Home recipes={recipes} />} />
         <Route path='/detail/:id' element={<Detail />} />
-        <Route path='/form' element={<Create diets={diets} />} />
+        <Route path='/create' element={<Create />} />
         <Route path='/search' element={<SearchResults />} />
       </Routes>
     </Provider>

@@ -14,19 +14,19 @@ function Navbar() {
         <h1>Recetas App</h1>
       </Link>
       {!isCreateFormRoute && (
-        <div>
+        <div className="search-bar">
           <SearchBar />
         </div>
       )}
       <Link to="/create">
       {!isCreateFormRoute && (
-        <button>Crear Nueva Receta</button>
+        <button className="navbar-button">Crear Nueva Receta</button>
       )}
       </Link>
     </div>
   );
 }
 
-
 export default Navbar;
+
 

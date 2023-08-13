@@ -1,6 +1,13 @@
 // recipeActions.js
 import axios from 'axios';
-import { GET_RECIPES, CREATE_RECIPE, SEARCH_RECIPES } from './actionTypes';
+import {
+  GET_RECIPES,
+  CREATE_RECIPE,
+  SEARCH_RECIPES,
+  SET_DIET_FILTER,
+  SET_ORIGIN_FILTER,
+  SET_SORT_OPTION,
+} from './actionTypes';
 
 // Acción para obtener las recetas desde el backend
 export const getRecipes = () => {
@@ -27,7 +34,7 @@ export const createRecipe = (recipeData) => async (dispatch) => {
   }
 };
 
-
+//Acción para buscar recetas por nombre
 export const searchRecipesByName = (query) => async (dispatch) => {
   try {
     const response = await axios.get('http://localhost:3001/recipes/name', {
@@ -40,3 +47,21 @@ export const searchRecipesByName = (query) => async (dispatch) => {
     console.error('Error searching recipes:', error);
   }
 };
+
+// Acción para filtrar recetas por dieta
+export const setDietFilter = (diet) => ({
+  type: SET_DIET_FILTER,
+  payload: diet,
+});
+
+// Acción para filtrar recetas por origen (api o db)
+export const setOriginFilter = (origin) => ({
+  type: SET_ORIGIN_FILTER,
+  payload: origin,
+});
+
+// Acción para cambiar la opción de ordenamiento
+export const setSortOption = (option) => ({
+  type: SET_SORT_OPTION,
+  payload: option,
+});

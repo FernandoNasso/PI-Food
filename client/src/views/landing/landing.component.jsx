@@ -4,16 +4,17 @@ import './landing.styles.css';
 
 function Landing() {
   return (
-    <div className="landing-container">
-      <div className="landing-content">
-        <h1>Bienvenido a la Aplicación de Recetas</h1>
-        <p>Encuentra y crea tus recetas favoritas</p>
-        <Link to="/home">
-          <button className="landing-button">Ingresar</button>
-        </Link>
-      </div>
+    <div className="landing-content">
+      <h1>BIENVENIDO</h1>
+      <h2>a tu aplicación de recetas</h2>
+      <p>Encuentra y crea tus recetas favoritas</p>
+      <Link to="/home">
+      <button className="landing-button">ENTRAR</button>
+      </Link>
     </div>
   );
 }
 
 export default Landing;
+
+

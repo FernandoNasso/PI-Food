@@ -21,7 +21,8 @@
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
   font-size: 2rem;
-  margin-left: 5px;
+  color: #000000;
+  /* margin-left: 5px; */
 }
 
 .link-To-Home .home-icon {

@@ -40,7 +40,7 @@ const getRecipeById = async (req, res) => {
       id: apiRecipe.id,
       name: apiRecipe.title,
       image: apiRecipe.image,
-      summary: apiRecipe.summary,
+      summary: apiRecipe.summary.replace(/<\/?[^>]+(>|$)/g, ""), // Eliminar etiquetas HTML del resumen
       healthScore: apiRecipe.healthScore,
       steps: apiRecipe.analyzedInstructions.length > 0 ? apiRecipe.analyzedInstructions[0].steps.map(step => step.step) : [],
       diets: [...new Set([...(apiRecipe.diets || []), ...(apiRecipe.vegetarian ? ['vegetarian'] : []), ...(apiRecipe.vegan ? ['vegan'] : []), ...(apiRecipe.glutenFree ? ['gluten free'] : [])])],    };

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './detail.styles.css'; // Importa el CSS
 
 function Detail() {
   const [recipe, setRecipe] = useState(null);
@@ -28,28 +30,38 @@ function Detail() {
   }
 
   return (
-    <div>
-      <h1>{recipe.name}</h1>
-      <img src={recipe.image} alt={recipe.name} />
-      <p>{recipe.summary}</p>
-      <p>Health Score: {recipe.healthScore}</p>
-      <h2>Diets</h2>
-      <ul>
-        {recipe.diets.map(diet => (
-          <li key={diet}>{diet}</li>
-        ))}
-      </ul>
-      <h2>Steps</h2>
+    <div className="detail-container">
+      <Link to="/home">
+        <img
+          src={require('../../assets/recipe-575434_1280.png')}
+          alt="Home"
+          className="home-icon"
+        />
+      </Link>
+      <h1 className="detail-name">{recipe.name}</h1>
+      <img className="detail-image" src={recipe.image} alt={recipe.name} />
+      <p className="detail-summary">{recipe.summary}</p>
       <div>
-        {Array.isArray(recipe.steps) ? (
-          <ol>
-            {recipe.steps.map((step, index) => (
-              <li key={index}>{step}</li>
-            ))}
-          </ol>
-        ) : (
-          <p>{recipe.steps}</p>
-        )}
+        <h2 className="detail-diets">Diets:</h2>
+        <ul className="detail-diets-list">
+          {recipe.diets.map(diet => (
+            <li key={diet} className="detail-list-item">{diet}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="detail-steps">
+        <h2 className="detail-steps">Steps:</h2>
+        <div>
+          {Array.isArray(recipe.steps) ? (
+            <ol className="detail-steps-list">
+              {recipe.steps.map((step, index) => (
+                <li key={index} className="detail-list-item">{step}</li>
+              ))}
+            </ol>
+          ) : (
+            <p className="detail-list-item">{recipe.steps}</p>
+          )}
+        </div>
       </div>
     </div>
   );

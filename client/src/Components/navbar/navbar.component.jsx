@@ -1,32 +1,39 @@
+// Navbar.component.jsx
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SearchBar from '../searchBar/searchBar.component';
 import './navbar.styles.css';
 
-function Navbar() { 
+function Navbar() {
   const location = useLocation();
-  // Verificar si la ruta actual es la del formulario de creación
   const isCreateFormRoute = location.pathname === '/form';
 
   return (
     <div className="navbar-container">
-      <Link to="/home">
-        <h1>Recetas App</h1>
-      </Link>
-      {!isCreateFormRoute && (
-        <div className="search-bar">
-          <SearchBar />
-        </div>
-      )}
-      <Link to="/create">
-      {!isCreateFormRoute && (
-        <button className="navbar-button">Crear Nueva Receta</button>
-      )}
-      </Link>
+      <div className="left-section">
+        <Link className="link-To-Home" to="/home">
+          <img src={require('../../assets/recipe-575434_1280.png')} alt="Home" className="home-icon" />
+          <h1>Mi App de Recetas</h1>
+        </Link>
+      </div>
+
+      <div className="searchBar">
+        {!isCreateFormRoute && (
+          <div>
+            <SearchBar />
+          </div>
+        )}
+      </div>
+
+      <div className="right-section">
+        <Link to="/create">
+          {!isCreateFormRoute && (
+            <button className="create-button">Crear Nueva Receta</button>
+          )}
+        </Link>
+      </div>
     </div>
   );
 }
 
 export default Navbar;
-
-

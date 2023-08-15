@@ -1,42 +1,42 @@
-/* Estilos para el formulario de creación de recetas
 .create-container {
-    padding: 20px;
-    border: 2px solid rgb(4, 201, 250)
-  }
-  
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  input,
-  textarea,
-  select {
-    font-size: 16px;
-    padding: 5px;
-    margin-bottom: 10px;
-  }
-  
-  button {
-    font-size: 16px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  } */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0rem;
+  background-image: url(../../assets/fondo\ negro.jpg);  
+  color: #010002;
+}
+
+.link-To-Home {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.link-To-Home .home-icon {
+  width: 90px;
+  height: 90px;
+}
+
+h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  background: #b1ecb6; 
+  background: -moz-linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%); 
+  background: -webkit-linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%); 
+  background: linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%);
+  border: solid 2px #CDB4DB;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+/* Estilo adicional para RecipeForm */
+/* .recipe-form-container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+} */

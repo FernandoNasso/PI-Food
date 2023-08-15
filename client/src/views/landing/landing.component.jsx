@@ -13,7 +13,7 @@ function Landing() {
       </Link>
     </div>
   );
-}
+} 
 
 export default Landing;
 

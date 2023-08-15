@@ -1,12 +1,15 @@
+// SearchBar.component.jsx
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { searchRecipesByName } from '../../Redux/actions/recipeActions';
+import './searchBar.styles.css'; // Importa el estilo aquí
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Obtenemos el historial de navegación
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setSearchQuery(e.target.value);
@@ -14,25 +17,27 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Llama a la acción searchRecipesByName para buscar recetas por nombre
     dispatch(searchRecipesByName(searchQuery));
     setSearchQuery('');
-    // Navega a la página de resultados de búsqueda
     navigate('/search');
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="search-bar-container">
         <input
-          placeholder="Search Recipe"
+          className="search-input"
+          placeholder="Buscar Receta"
           value={searchQuery}
           onChange={handleChange}
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="search-button">
+          Buscar
+        </button>
       </form>
     </div>
   );
 };
 
 export default SearchBar;
+

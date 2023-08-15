@@ -15,13 +15,15 @@
 }
 
 .landing-content h1 {
+  font-family: 'Quicksand', sans-serif;
   font-size: 5rem;
   margin-bottom: 0.1rem; /* Aumenta o disminuye este valor según tus preferencias */
- 
+  margin-top: 50px;
   color: #000000
 }
 
 .landing-content h2 {
+  font-family: 'Quicksand', sans-serif;
   font-size: 2.5rem;
   margin-bottom: 0.1rem; /* Aumenta o disminuye este valor según tus preferencias */
   margin-top: 1 rem;
@@ -29,17 +31,20 @@
 }
 
 .landing-content p {
-  font-size: 2rem;
+  font-family: 'Caveat', cursive;
+  font-size: 2.5rem;
   margin-bottom: 4rem;
   font-style:  "ubuntu";
-  color: #FFFFFF;
+  color: #000000;
 }
 
 .landing-button {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
-  background-color: #CDB4DB;
-  border: none;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 1.8rem;
+  background-color: #BDE0FE;
+  border: 2px solid #CDB4DB;
   color: #000000;
   cursor: pointer;
   transition: background-color 0.3s ease;

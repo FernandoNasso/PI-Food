@@ -1,57 +1,62 @@
-.create-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 2px solid #c40707;
-    border-radius: 5px;
-    background-color: #fff;
+.create-form-container {
+  width: 100%;
+  max-width: 800px;
+  background: #b1ecb6; 
+  background: -moz-linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%); 
+  background: -webkit-linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%); 
+  background: linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%);
+  border-radius: 10px;
+  border: solid 2px #CDB4DB;
+  padding: 0.2rem;
+  box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.create-form-container form {
+  width: 90%; /* Ajusta el ancho al 80% de la pantalla */
+  margin: 2%; /* Centra el formulario horizontalmente */
+}
+
+.create-form-container label {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.create-form-container input,
+.create-form-container textarea,
+.create-form-container select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+  border: 1px solid #FFC8DD;
+  border-radius: 4px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.create-form-container button {
+  background-color: #CDB4DB;
+  color: #1c002c;
+  border: solid 2px #FFC8DD;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 1rem;
+}
+
+.create-form-container button:hover {
+  background-color: #FFC8DD;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .create-form-container form {
+    width: 100%; /* Establece el ancho máximo al 100% en pantallas más pequeñas */
   }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  input[type="text"],
-  textarea,
-  select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  input[type="number"] {
-    width: 50px;
-  }
-  
-  select {
-    height: 100px; /* Ajusta la altura según el número de opciones */
-  }
-  
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
+}

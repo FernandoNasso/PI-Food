@@ -7,13 +7,15 @@ function Card({ id, name, diets, image }) {
   return (
     <div className="card-container">
       <img src={image} alt={name} />
-      <h2>{name}</h2>
-      <p>
-        Dietas:{" "}
-        {diets && Array.isArray(diets)
-          ? diets.map((diet) => (typeof diet === "object" ? diet.name : diet)).join(", ")
-          : "No especificadas"}
-      </p>
+      <div className="card-content"> {/* Agrega un contenedor para el contenido */}
+        <h2>{name}</h2>
+        <p>
+          Dietas:{" "}
+          {diets && Array.isArray(diets)
+            ? diets.map((diet) => (typeof diet === "object" ? diet.name : diet)).join(", ")
+            : "No especificadas"}
+        </p>
+      </div>
       <Link to={`/detail/${id}`}>
         <button>Ver detalle</button>
       </Link>
@@ -22,6 +24,7 @@ function Card({ id, name, diets, image }) {
 }
 
 export default Card;
+
 
 
 

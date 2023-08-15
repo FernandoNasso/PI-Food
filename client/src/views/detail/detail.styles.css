@@ -1,44 +1,82 @@
 .detail-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  background: #df5eff;
+  background: -moz-linear-gradient(to right, #df5eff 0%, #a2fff7 100%);
+  background: -webkit-linear-gradient(to right, #df5eff 0%, #a2fff7 100%);
+  background: linear-gradient(to right, #df5eff 0%, #a2fff7 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; /* Añadido padding para el espacio alrededor del contenido */
+}
+
+.home-icon {
+  width: 90px;
+  height: 90px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.detail-name {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 28px;
+  color: black;
+  margin-top: 10px;
+  border: solid 2px #df5eff;
+  border-radius: 10px; /* Agregado el signo de igual para la propiedad border-radius */
+  padding: 10px;
+}
+
+.detail-image {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border: solid 2px #df5eff;
+}
+
+.detail-summary {
+  font-family: 'Caveat', cursive;
+  font-size: 30px;
+  color: #000000;
+  text-align: center;
+  margin: 0 20px; /* Agregado margen a izquierda y derecha */
+}
+
+.detail-diets {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: #000000;
+  margin-top: 40px; /* Aumentado el margen superior */
   text-align: center;
 }
 
-h1 {
-  font-size: 28px;
+.detail-diets-list {
+  font-family: 'Caveat', cursive;
+  font-size: 30px;
+  margin-top: 0; /* Eliminado el margen superior e inferior */
+  margin-bottom: 30px;
+  padding: 0; /* Eliminado el padding */
+  color: #000000;
+  text-align: center;
+}
+
+.detail-steps {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 40px;
   font-weight: bold;
-  margin-bottom: 20px;
+  color: #000000;
+  margin-top: 10px; /* Aumentado el margen superior */
+  text-align: left; /* Cambiado a alineación izquierda */
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.detail-steps-list {
+  font-family: 'Borel', cursive;
+  font-size: 25px;
+  list-style: decimal;
+  margin: 15px;; /* Eliminado el margen superior e inferior */
+  padding: 0; /* Eliminado el padding */
 }
 
-p {
-  font-size: 16px;
-  margin-bottom: 15px;
-  line-height: 1.5;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-ol {
-  font-size: 16px;
-  text-align: left;
-  margin-left: 30px;
-  margin-bottom: 20px;
-}
-
-ol li {
-  margin-bottom: 8px;
+.detail-list-item {
+  margin: 5px;
 }

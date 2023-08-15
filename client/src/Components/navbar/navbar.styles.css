@@ -1,33 +1,97 @@
-/* navbar.styles.css */
-
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #CDB4DB;
+  padding: 0.6rem;
+  background: #df5eff;
+  background: -moz-linear-gradient(to right, #df5eff 0%, #a2fff7 100%);
+  background: -webkit-linear-gradient(to right, #df5eff 0%, #a2fff7 100%);
+  background: linear-gradient(to right, #df5eff 0%, #a2fff7 100%);
   color: #000000;
 }
 
-.navbar-container h1 {
-  font-size: 1.5rem;
-  margin: 0;
+.link-To-Home {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000000;
 }
 
-.navbar-button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+.link-To-Home h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-left: 5px;
+}
+
+.link-To-Home .home-icon {
+  width: 70px;
+  height: 70px;
+  margin-right: 5px;
+}
+
+.searchBar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.create-button {
   background-color: #FFC8DD;
-  border: none;
-  color: #000000;
+  border: solid 2px #CDB4DB;
+  border-radius: 20px;
+  padding: 10px 30px;
+  margin-right: 30px;;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  color: black;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.navbar-button:hover {
-  background-color: #FFAFCC;
+.create-button:hover {
+  background-color: #CDB4DB;
+  transform: translateY(-2px);
 }
 
-.search-bar {
-  margin-right: 1rem;
+/* Aplicar estilos solo en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .link-To-Home {
+    margin-bottom: 10px;
+  }
+
+  .link-To-Home h1 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
+
+  .link-To-Home .home-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .searchBar {
+    margin-top: 10px;
+  }
+
+  .right-section {
+    margin-top: 10px;
+  }
+
+  .create-button {
+    padding: 8px 16px;
+  }
 }

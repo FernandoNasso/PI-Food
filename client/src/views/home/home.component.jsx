@@ -40,20 +40,19 @@ const Home = () => {
     }
 
     // Aplicar filtro por origen
-if (originFilter) {
-  filteredRecipes = filteredRecipes.filter((recipe) => {
-    const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-    
-    if (originFilter === "db_recetas" && recipe.id && uuidPattern.test(recipe.id)) {
-      return true; // Mis Recetas (con UUID)
-    } else if (originFilter === "api_recetas" && recipe.id && !uuidPattern.test(recipe.id)) {
-      return true; // Más Recetas (sin UUID)
+    if (originFilter) {
+      const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+      
+      filteredRecipes = filteredRecipes.filter((recipe) => {
+        if (originFilter === "db_recetas" && recipe.id && uuidPattern.test(recipe.id)) {
+          return true; // Mis Recetas (con UUID)
+        } else if (originFilter === "api_recetas" && recipe.id && !uuidPattern.test(recipe.id)) {
+          return true; // Más Recetas (sin UUID)
+        }
+        
+        return false;
+      });
     }
-    
-    return false;
-  });
-}
-
 
     // Aplicar ordenamiento
     if (sortOption === 'alphabetical') {
@@ -63,6 +62,7 @@ if (originFilter) {
     }
 
     setPorPagina(filteredRecipes.slice(startIdx, endIdx));
+
   }, [pagina, recipes, dietFilter, originFilter, sortOption]);
 
   const handleNextPage = () => {
@@ -90,46 +90,49 @@ if (originFilter) {
     dispatch(setSortOption(value));
   };
 
+  const totalPages = Math.ceil((recipes.recipes && recipes.recipes.length) / 9);
+
   return (
-    <div>
+    <div className="home-container"> 
       <Navbar />
       <div className="filter-options">
         {/* Selector de filtro de dieta */}
         <select value={dietFilter} onChange={(e) => handleDietFilterChange(e.target.value)}>
-          <option value="">Selecciona una dieta</option>
+          <option value="">Selecciona un tipo de dieta</option>
           {diets.map((diet) => (
             <option key={diet} value={diet}>
               {diet}
             </option>
           ))}
         </select>
-        {console.log("Selected diet filter:", dietFilter)} {/* Agrega este console.log */}
   
         {/* Selector de filtro de origen */}
         <select value={originFilter} onChange={(e) => handleOriginFilterChange(e.target.value)}>
           <option value="">Selecciona un origen</option>
           {origins.map((origin) => (
-          <option key={origin} value={origin}>
-          {origin === "db_recetas" ? "Mis Recetas" : origin === "api_recetas" ? "Más Recetas" : ""}
-          </option>
-        ))}
+            <option key={origin} value={origin}>
+              {origin === "db_recetas" ? "Mis Recetas" : origin === "api_recetas" ? "Otras Recetas" : ""}
+            </option>
+          ))}
         </select>
-        {console.log("Selected origin filter:", originFilter)}
   
         {/* Selector de ordenamiento */}
         <select value={sortOption} onChange={(e) => handleSortOptionChange(e.target.value)}>
-          <option value="">Selecciona una opción de ordenamiento</option>
+          <option value="">Selecciona una opción de orden</option>
           <option value="alphabetical">Ordenar alfabéticamente</option>
           <option value="healthScore">Ordenar por puntuación de salud</option>
         </select>
-        {console.log("Selected sort option:", sortOption)} {/* Agrega este console.log */}
       </div>
       <Cards recipes={porPagina} />
-      <button onClick={handlePrevPage}>retrocede</button>
-      <button onClick={handleNextPage}>avanzar</button>
+      <div className="pagination">
+        <button onClick={handlePrevPage} disabled={pagina === 1}>Retroceder</button>
+        <div className="page-indicator">
+          Página {pagina} de {totalPages}
+        </div>
+        <button onClick={handleNextPage} disabled={pagina === totalPages}>Avanzar</button>
+      </div>
     </div>
   );
 };
 
 export default Home;
-

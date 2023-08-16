@@ -1,19 +1,19 @@
 const { Recipe, Diets } = require("../db");
-const axios = require("axios");
+const axios = require("axios");   //importa axios para realizar solicitudes http
 const { API_KEY, URL_BASE } = process.env;
 
 const getAllRecipes = async (req, res) => {
-  try {
+  try { //utiliza bloque try catch para manejar errores
         // Obtenemos todas las recetas desde la db local usando Sequelize
         const recipesFromDB = await Recipe.findAll({
           include: Diets, // Incluir la relación con la tabla Diets
         });
 
-    // Obtenemos 100 recetas desde la API
+    // Obtenemos 100 recetas desde la API solicitud get
     const { data } = await axios.get(`${URL_BASE}/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
 
     // Procesamos las recetas de la API 
-    const recipesFromAPI = data.results.map((recipe) => {
+    const recipesFromAPI = data.results.map((recipe) => { //para cada receta se crea un objeto con la info relevante
       const diets = [...recipe.diets];
 
       // Verificar si no existe y luego agregar a la lista de diets

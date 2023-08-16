@@ -57,9 +57,14 @@ const Home = () => {
     // Aplicar ordenamiento
     if (sortOption === 'alphabetical') {
       filteredRecipes.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortOption === 'reverseAlphabetical') {
+      filteredRecipes.sort((a, b) => b.name.localeCompare(a.name));
     } else if (sortOption === 'healthScore') {
       filteredRecipes.sort((a, b) => b.healthScore - a.healthScore);
+    } else if (sortOption === 'reverseHealthScore') {
+      filteredRecipes.sort((a, b) => a.healthScore - b.healthScore);
     }
+    
 
     setPorPagina(filteredRecipes.slice(startIdx, endIdx));
 
@@ -118,18 +123,20 @@ const Home = () => {
   
         {/* Selector de ordenamiento */}
         <select value={sortOption} onChange={(e) => handleSortOptionChange(e.target.value)}>
-          <option value="">Selecciona una opción de orden</option>
-          <option value="alphabetical">Ordenar alfabéticamente</option>
-          <option value="healthScore">Ordenar por puntuación de salud</option>
+        <option value="">Selecciona una opción de orden</option>
+        <option value="alphabetical">Order (A-Z)</option>
+        <option value="reverseAlphabetical">Order (Z-A)</option>
+        <option value="healthScore">Healthscore (Max-Min)</option>
+        <option value="reverseHealthScore">Healthscore (Min-Max)</option>
         </select>
       </div>
       <Cards recipes={porPagina} />
       <div className="pagination">
-        <button onClick={handlePrevPage} disabled={pagina === 1}>Retroceder</button>
+        <button className="pagination-button" onClick={handlePrevPage} disabled={pagina === 1}>Retroceder</button>
         <div className="page-indicator">
           Página {pagina} de {totalPages}
         </div>
-        <button onClick={handleNextPage} disabled={pagina === totalPages}>Avanzar</button>
+        <button className="pagination-button" onClick={handleNextPage} disabled={pagina === totalPages}>Avanzar</button>
       </div>
     </div>
   );

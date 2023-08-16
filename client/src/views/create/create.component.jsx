@@ -13,7 +13,7 @@ function Create() {
           className="home-icon"
         />
       </Link>
-      <h1>Create a New Recipe</h1>
+      <h1 className="create-title">Create a New Recipe</h1>
       <RecipeForm />
     </div>
   );

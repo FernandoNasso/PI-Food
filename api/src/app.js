@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express');  //importamos las bibliotecas necesarias
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -10,6 +10,7 @@ const server = express();
 
 server.name = 'API';
 
+//configura los middlewares, permisos:
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
@@ -22,9 +23,9 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use('/', routes);
+server.use('/', routes); //Monta las rutas definidas en routes/index.js en la raíz del servidor.
 
-// Error catching endware.
+// Error catching endware. Middleware de manejo de rrores:
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;

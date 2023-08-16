@@ -1,5 +1,5 @@
-require('dotenv').config();  // permite leer lo que tenemos en .env
-const { Sequelize } = require('sequelize');
+require('dotenv').config();  // permite leer las variables de entorno que definimos en .env
+const { Sequelize } = require('sequelize'); //importa la clase sequelize para conectar con la db.
 const fs = require('fs');
 const path = require('path');
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
@@ -12,7 +12,7 @@ console.log('Conexión a la base de datos establecida');
 
 const basename = path.basename(__filename);
 
-const modelDefiners = [];
+const modelDefiners = []; //array donde se almacenaran los mdelos
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
 fs.readdirSync(path.join(__dirname, '/models'))

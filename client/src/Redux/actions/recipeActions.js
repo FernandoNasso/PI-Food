@@ -7,6 +7,7 @@ import {
   SET_DIET_FILTER,
   SET_ORIGIN_FILTER,
   SET_SORT_OPTION,
+  DELETE_RECIPE,
 } from './actionTypes';
 
 // Acción para obtener las recetas desde el backend
@@ -45,6 +46,17 @@ export const searchRecipesByName = (query) => async (dispatch) => {
     dispatch({ type: SEARCH_RECIPES, payload: recipes });
   } catch (error) {
     console.error('Error searching recipes:', error);
+  }
+};
+
+// Acción para eliminar una receta
+export const deleteRecipe = (id) => async (dispatch) => {
+  try {
+    await axios.delete(`http://localhost:3001/recipes/${id}`);
+    dispatch({ type: DELETE_RECIPE, payload: id }); // Envía el ID de la receta eliminada
+    dispatch(getRecipes()); // Actualiza la lista de recetas después de eliminar
+  } catch (error) {
+    console.error('Error deleting recipe:', error);
   }
 };
 

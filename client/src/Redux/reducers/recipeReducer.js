@@ -1,25 +1,4 @@
-// // recipeReducer.js
-// import { GET_RECIPES, CREATE_RECIPE, SET_SELECTED_RECIPE } from '../actions/actionTypes';
 
-// const initialState = [];
-
-// const recipeReducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case GET_RECIPES:
-//       console.log('Recipes received from backend:', action.payload);
-//       return action.payload;
-//     case CREATE_RECIPE:
-//         return [...state, action.payload];
-//     case SET_SELECTED_RECIPE:
-//       return { ...state, selectedRecipe: action.payload };
-//     default:
-//       return state;
-//   }
-// };
-
-// export default recipeReducer;
-
-// recipeReducer.js
 import {
   GET_RECIPES,
   CREATE_RECIPE,
@@ -27,6 +6,7 @@ import {
   SET_DIET_FILTER,
   SET_ORIGIN_FILTER,
   SET_SORT_OPTION,
+  DELETE_RECIPE
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -69,7 +49,11 @@ const recipeReducer = (state = initialState, action) => {
         ...state,
         sortOption: action.payload,
       };
-    // ...otros casos de reducción
+    case DELETE_RECIPE:
+      return {  
+        ...state,
+        recipes: state.recipes.filter((recipe) => recipe.id !== action.payload),
+      };
     default:
       return state;
   }

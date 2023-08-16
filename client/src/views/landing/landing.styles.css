@@ -12,28 +12,32 @@
   align-items: center; /* Centra verticalmente */
   flex-direction: column; /* Apila los elementos uno encima del otro */
   color: #FFFFFF;
+  background-color: transparent;
+  border: none;
 }
 
-.landing-content h1 {
+.landing-title {
   font-family: 'Quicksand', sans-serif;
   font-size: 5rem;
-  margin-bottom: 0.1rem; /* Aumenta o disminuye este valor según tus preferencias */
-  margin-top: 50px;
-  color: #000000
+  margin-bottom: 0px; /* Aumenta o disminuye este valor según tus preferencias */
+  margin-top: 1px;
+  color: #000000;
+  background-color: transparent;
+  border: none;
 }
 
 .landing-content h2 {
   font-family: 'Quicksand', sans-serif;
   font-size: 2.5rem;
-  margin-bottom: 0.1rem; /* Aumenta o disminuye este valor según tus preferencias */
-  margin-top: 1 rem;
+  margin-bottom: 0px; /* Aumenta o disminuye este valor según tus preferencias */
+  margin-top: 0px;
   color: #000000
 }
 
 .landing-content p {
   font-family: 'Caveat', cursive;
   font-size: 2.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 50px;
   font-style:  "ubuntu";
   color: #000000;
 }
@@ -48,7 +52,8 @@
   color: #000000;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-bottom: 5rem;
+  margin-bottom: 5px;
+  margin-top: 15px;
 }
 
 .landing-button:hover {

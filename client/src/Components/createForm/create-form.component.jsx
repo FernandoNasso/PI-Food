@@ -24,11 +24,17 @@ const RecipeForm = () => {
 
   const handleDietChange = (e) => {
     const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+  
+    // Si la opción ya estaba seleccionada, la deseleccionamos; si no, la seleccionamos
+    const updatedSelectedDiets = formData.selectedDiets.includes(selectedOptions[0])
+      ? formData.selectedDiets.filter((diet) => diet !== selectedOptions[0])
+      : [...formData.selectedDiets, selectedOptions[0]];
+  
     setFormData((prevData) => ({
       ...prevData,
-      selectedDiets: selectedOptions,
+      selectedDiets: updatedSelectedDiets,
     }));
-  };
+  };  
 
   const handleHealthScoreChange = (e) => {
     const score = Math.min(Math.max(0, e.target.value), 100); // Limita el valor entre 0 y 100
@@ -83,11 +89,12 @@ const RecipeForm = () => {
         />
         <label>Image URL:</label>
         <input
-          type="text"
+          type="url"
           name="image"
           value={formData.image}
           onChange={(e) => setFormData({ ...formData, image: e.target.value })}
           required
+          title="Por favor, ingresa una URL válida para la imagen"
         />
         <label>Health Score:</label>
         <input
@@ -104,6 +111,7 @@ const RecipeForm = () => {
           name="steps"
           value={formData.steps}
           onChange={(e) => setFormData({ ...formData, steps: e.target.value })}
+          required
         />
         <label>Select Diets:</label>
         <select

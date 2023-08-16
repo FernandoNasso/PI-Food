@@ -20,8 +20,14 @@
   font-family: 'Quicksand', sans-serif;
   font-size: 28px;
   color: black;
-  margin-top: 10px;
-  border: solid 2px #df5eff;
+  margin-top: 13px;
+  margin-bottom: 2px;
+  background: #b1ecb6; 
+  background: -moz-linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%); 
+  background: -webkit-linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%); 
+  background: linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%);
+  border: solid 2px #CDB4DB;
+  border-radius: 10px;
   border-radius: 10px; /* Agregado el signo de igual para la propiedad border-radius */
   padding: 10px;
 }

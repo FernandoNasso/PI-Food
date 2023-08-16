@@ -12,7 +12,7 @@
   }
   
   .link-To-Home {
-    margin-top: 1rem; /* Añade espacio en la parte superior */
+    margin-top: 1px; /* Añade espacio en la parte superior */
   }
   
   .link-To-Home .home-icon {
@@ -20,11 +20,20 @@
     height: 90px;
   }
   
-  h2 {
+  .search-results-title {
     font-family: 'Quicksand', sans-serif;
-    font-size: 3rem;
-    color: #fff;
-    margin-top: 1rem; /* Añade espacio en la parte superior */
+    font-size: 35px;
+    color: black;
+    margin-top: 13px;
+    margin-bottom: 1px;
+    background: #b1ecb6; 
+    background: -moz-linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%); 
+    background: -webkit-linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%); 
+    background: linear-gradient(45deg,  #b1ecb6 0%,#f1d4cc 50%,#fef2b6 100%);
+    border: solid 2px #CDB4DB;
+    border-radius: 10px;
+    border-radius: 10px; /* Agregado el signo de igual para la propiedad border-radius */
+    padding: 10px;
   }
   
   /* Media query para ajustar estilos en pantallas pequeñas */

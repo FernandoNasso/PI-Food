@@ -16,7 +16,7 @@ const SearchResults = () => {
           className="home-icon"
         />
       </Link>
-      <h2>Search Results</h2>
+      <h2 className='search-results-title'>Search Results</h2>
       <Cards recipes={searchResults} />
     </div>
   );

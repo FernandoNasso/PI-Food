@@ -11,7 +11,7 @@ function Detail() {
   useEffect(() => {
     async function fetchRecipe() {
       try {
-        // Construct the appropriate URL based on the type of ID
+
         const apiUrl = `http://localhost:3001/recipes/${id}`;
 
         const response = await axios.get(apiUrl);
@@ -26,7 +26,7 @@ function Detail() {
   }, [id]);
 
   if (!recipe) {
-    return <div>Loading...</div>;
+    return <div>Receta no encontrada</div>;
   }
 
   return (
@@ -41,6 +41,7 @@ function Detail() {
       <h1 className="detail-name">{recipe.name}</h1>
       <img className="detail-image" src={recipe.image} alt={recipe.name} />
       <p className="detail-summary">{recipe.summary}</p>
+      <p className="detail-healthScore">Health Score: {recipe.healthScore}</p>
       <div>
         <h2 className="detail-diets">Diets:</h2>
         <ul className="detail-diets-list">

@@ -8,8 +8,8 @@ import './home.styles.css';
 const Home = () => {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
-  const [pagina, setPagina] = useState(1);
-  const [porPagina, setPorPagina] = useState([]);
+  const [pag, setPag] = useState(1);
+  const [perPag, setPerPag] = useState([]);
 
   const [dietFilter, setDietFilterLocal] = useState('');
   const [originFilter, setOriginFilterLocal] = useState('');
@@ -17,22 +17,22 @@ const Home = () => {
 
   // Define las opciones de dieta y origen
   const diets = ["gluten free", "dairy free", "lacto ovo vegetarian", "vegan", "vegetarian", "paleolithic", "primal", "whole 30"]; 
-  const origins = ['db_recetas', 'api_recetas'];
+  const origins = ['db_recipes', 'api_recipes'];
 
   useEffect(() => {
     dispatch(getRecipes());
   }, [dispatch]);
 
   useEffect(() => {
-    const recipesPorPagina = 9;
-    const startIdx = (pagina - 1) * recipesPorPagina;
-    const endIdx = startIdx + recipesPorPagina;
+    const recipesPerPag = 9;
+    const startIdx = (pag - 1) * recipesPerPag;
+    const endIdx = startIdx + recipesPerPag;
 
     if (!recipes || !recipes.recipes) {
       return;
     }
 
-    let filteredRecipes = [...recipes.recipes];
+    let filteredRecipes = [...recipes.recipes];  // Creamos una copia de las recetas para filtrar y ordenar
 
     // Aplicar filtro por dieta
     if (dietFilter) {
@@ -44,9 +44,9 @@ const Home = () => {
       const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
       
       filteredRecipes = filteredRecipes.filter((recipe) => {
-        if (originFilter === "db_recetas" && recipe.id && uuidPattern.test(recipe.id)) {
+        if (originFilter === "db_recipes" && recipe.id && uuidPattern.test(recipe.id)) {
           return true; // Mis Recetas (con UUID)
-        } else if (originFilter === "api_recetas" && recipe.id && !uuidPattern.test(recipe.id)) {
+        } else if (originFilter === "api_recipes" && recipe.id && !uuidPattern.test(recipe.id)) {
           return true; // Más Recetas (sin UUID)
         }
         
@@ -66,17 +66,17 @@ const Home = () => {
     }
     
 
-    setPorPagina(filteredRecipes.slice(startIdx, endIdx));
+    setPerPag(filteredRecipes.slice(startIdx, endIdx));
 
-  }, [pagina, recipes, dietFilter, originFilter, sortOption]);
+  }, [pag, recipes, dietFilter, originFilter, sortOption]);
 
   const handleNextPage = () => {
-    setPagina((prevPage) => prevPage + 1);
+    setPag((prevPage) => prevPage + 1);
   };
 
   const handlePrevPage = () => {
-    if (pagina > 1) {
-      setPagina((pagina) => pagina - 1);
+    if (pag > 1) {
+      setPag((pag) => pag - 1);
     }
   };
 
@@ -116,7 +116,7 @@ const Home = () => {
           <option value="">Selecciona un origen</option>
           {origins.map((origin) => (
             <option key={origin} value={origin}>
-              {origin === "db_recetas" ? "Mis Recetas" : origin === "api_recetas" ? "Otras Recetas" : ""}
+              {origin === "db_recipes" ? "Mis Recetas" : origin === "api_recipes" ? "Otras Recetas" : ""}
             </option>
           ))}
         </select>
@@ -130,13 +130,13 @@ const Home = () => {
         <option value="reverseHealthScore">Healthscore (Min-Max)</option>
         </select>
       </div>
-      <Cards recipes={porPagina} />
+      <Cards recipes={perPag} />
       <div className="pagination">
-        <button className="pagination-button" onClick={handlePrevPage} disabled={pagina === 1}>Retroceder</button>
+        <button className="pagination-button" onClick={handlePrevPage} disabled={pag === 1}>Retroceder</button>
         <div className="page-indicator">
-          Página {pagina} de {totalPages}
+          Página {pag} de {totalPages}
         </div>
-        <button className="pagination-button" onClick={handleNextPage} disabled={pagina === totalPages}>Avanzar</button>
+        <button className="pagination-button" onClick={handleNextPage} disabled={pag === totalPages}>Avanzar</button>
       </div>
     </div>
   );

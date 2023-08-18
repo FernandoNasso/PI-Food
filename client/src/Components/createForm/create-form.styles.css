@@ -36,7 +36,7 @@
   font-size: 18px;
 }
 
-.create-form-container button {
+.create-form-button {
   background-color: #CDB4DB;
   color: #1c002c;
   border: solid 2px #FFC8DD;
@@ -50,10 +50,46 @@
   margin-top: 1rem;
 }
 
-.create-form-container button:hover {
+.create-form-button:hover {
   background-color: #FFC8DD;
   transform: translateY(-2px);
 }
+
+.notification {
+  position: fixed;
+  top: 50%; /* Centrar verticalmente */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translate(-50%, -50%); /* Ajustar posición al centro */
+  padding: 45px; /* Mayor espacio alrededor del texto */
+  font-size: 20px; /* Tamaño de fuente más grande */
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+  opacity: 0.9;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.success {
+  background-color: #b1ecb6; /* Color de fondo verde para éxito */
+}
+
+.error {
+  background-color: #ed7c6f; /* Color de fondo rojo para error */
+}
+
+.close-button {
+  position: absolute; /* Posicionamiento absoluto dentro del contenedor */
+  top: 8px; /* Distancia desde la parte superior */
+  right: 8px; /* Distancia desde la parte derecha */
+  width: 24px; /* Ancho del botón */
+  height: 24px; /* Altura del botón */
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 
 @media (max-width: 768px) {
   .create-form-container form {

@@ -1,4 +1,3 @@
-// recipeActions.js
 import axios from 'axios';
 import {
   GET_RECIPES,
@@ -42,7 +41,6 @@ export const searchRecipesByName = (query) => async (dispatch) => {
       params: { name: query },
     });
     const recipes = response.data;
-    console.log('Recetas encontradas en recipeActions:', recipes);
     dispatch({ type: SEARCH_RECIPES, payload: recipes });
   } catch (error) {
     console.error('Error searching recipes:', error);

@@ -47,12 +47,24 @@
   margin: 0 20px; /* Agregado margen a izquierda y derecha */
 }
 
-.detail-diets {
+.detail-healthScore {
   font-family: 'Quicksand', sans-serif;
-  font-size: 40px;
+  font-size: 25px;
   font-weight: bold;
   color: #000000;
   margin-top: 40px; /* Aumentado el margen superior */
+  text-align: center;
+  border: solid 2px #b1ecb6;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.detail-diets {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 35px;
+  font-weight: bold;
+  color: #000000;
+  margin-top: 10px; /* Aumentado el margen superior */
   text-align: center;
 }
 

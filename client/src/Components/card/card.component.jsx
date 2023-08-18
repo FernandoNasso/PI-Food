@@ -6,6 +6,10 @@ import confirmationImage from "../../assets/eliminar.png";
 import "./card.styles.css";
 
 function Card({ id, name, diets, image }) {
+
+  const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id);
+
+
   const dispatch = useDispatch();
   const [showConfirmation, setShowConfirmation] = useState(false); // Estado para controlar la visualización del cartel de confirmación
 
@@ -32,9 +36,11 @@ function Card({ id, name, diets, image }) {
       <Link to={`/detail/${id}`}>
         <button className="detail-button">Ver detalle</button>
       </Link>
-      <button className="delete-button" onClick={toggleConfirmation}>
-        Eliminar receta
-      </button>
+      {isUuid && (
+        <button className="delete-button" onClick={toggleConfirmation}>
+          Eliminar receta
+        </button>
+      )}
       
       {/* Cartel de confirmación */}
       {showConfirmation && (

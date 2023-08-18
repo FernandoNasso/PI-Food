@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { searchRecipesByName } from '../../Redux/actions/recipeActions';
-import './searchBar.styles.css'; // Importa el estilo aquí
-
+import './searchBar.styles.css';
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();

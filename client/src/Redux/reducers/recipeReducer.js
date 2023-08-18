@@ -14,7 +14,6 @@ const initialState = {
   dietFilter: "",
   originFilter: "",
   sortOption: "",
-  // ...otros estados
 };
 
 const recipeReducer = (state = initialState, action) => {

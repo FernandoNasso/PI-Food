@@ -18,6 +18,9 @@ const RecipeForm = () => {
     selectedDiets: [],
   });
 
+  const [notification, setShowNotification] = useState(null);
+
+
   useEffect(() => {
     dispatch(getDiets());
   }, [dispatch]);
@@ -61,11 +64,11 @@ const RecipeForm = () => {
         selectedDiets: [],
       });
       // Mostrar un mensaje de éxito
-      alert('Receta creada con éxito');
+      setShowNotification({ type: 'success', message: 'Receta creada con éxito' });
     } catch (error) {
       console.error('Error creating recipe:', error);
       // Mostrar un mensaje de error
-      alert('Error al crear la receta');
+      setShowNotification({ type: 'error', message: 'Error al crear la receta' });
     }
   };
 
@@ -127,8 +130,16 @@ const RecipeForm = () => {
             </option>
           ))}
         </select>
-        <button type="submit">Create Recipe</button>
+        <button className="create-form-button" type="submit">Create Recipe</button>
       </form>
+      {notification && (
+        <div className={`notification ${notification.type}`}>
+          {notification.message}
+          <button className="close-button" onClick={() => setShowNotification(false)}>
+            X
+          </button>
+        </div>
+      )}
     </div>
   );
 };

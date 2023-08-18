@@ -6,19 +6,14 @@ const getRecipeById = async (req, res) => {
   const { idRecipe } = req.params;
 
   try {
-    // Check if idRecipe is a valid UUID
+    
     const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(idRecipe);
 
     if (isUuid) {
-      // Search in the database by UUID
       const recipe = await Recipe.findByPk(idRecipe, {
         include: [{ model: Diets, through: { attributes: [] } }],
       });
 
-      if (!recipe) {
-        return res.status(404).json({ message: 'Recipe not found in the database' });
-      }
-        // Formatea y envía la respuesta para receta en la base de datos
         const formattedRecipe = {
           id: recipe.id,
           name: recipe.name,
@@ -31,16 +26,16 @@ const getRecipeById = async (req, res) => {
 
         return res.json(formattedRecipe);
       } else {
-      // Search in the API by ID
+      
       const response = await axios.get(`${URL_BASE}/${idRecipe}/information?apiKey=${API_KEY}&addRecipeInformation=true`);
       const apiRecipe = response.data;
 
-    // Formatea los datos de la receta de la API según tu modelo
+    
     const formattedRecipe = {
       id: apiRecipe.id,
       name: apiRecipe.title,
       image: apiRecipe.image,
-      summary: apiRecipe.summary.replace(/<\/?[^>]+(>|$)/g, ""), // Eliminar etiquetas HTML del resumen
+      summary: apiRecipe.summary.replace(/<\/?[^>]+(>|$)/g, ""), // Elimina etiquetas HTML del resumen
       healthScore: apiRecipe.healthScore,
       steps: apiRecipe.analyzedInstructions.length > 0 ? apiRecipe.analyzedInstructions[0].steps.map(step => step.step) : [],
       diets: [...new Set([...(apiRecipe.diets || []), ...(apiRecipe.vegetarian ? ['vegetarian'] : []), ...(apiRecipe.vegan ? ['vegan'] : []), ...(apiRecipe.glutenFree ? ['gluten free'] : [])])],    };

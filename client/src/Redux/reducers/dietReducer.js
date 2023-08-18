@@ -12,6 +12,5 @@ const dietReducer = (state = initialState, action) => {
   }
   
 };
-console.log("el dietReducer funciona bien")
 export default dietReducer;
 

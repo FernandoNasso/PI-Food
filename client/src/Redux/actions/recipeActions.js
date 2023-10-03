@@ -9,7 +9,6 @@ import {
   DELETE_RECIPE,
 } from './actionTypes';
 
-// Acción para obtener las recetas desde el backend
 export const getRecipes = () => {
   return async (dispatch) => {
     try {
@@ -23,7 +22,6 @@ export const getRecipes = () => {
   };
 };
 
-// Acción para crear una nueva receta en el backend
 export const createRecipe = (recipeData) => async (dispatch) => {
   try {
     const response = await axios.post('http://localhost:3001/recipes', recipeData);
@@ -34,7 +32,6 @@ export const createRecipe = (recipeData) => async (dispatch) => {
   }
 };
 
-//Acción para buscar recetas por nombre
 export const searchRecipesByName = (query) => async (dispatch) => {
   try {
     const response = await axios.get('http://localhost:3001/recipes/name', {
@@ -47,30 +44,26 @@ export const searchRecipesByName = (query) => async (dispatch) => {
   }
 };
 
-// Acción para eliminar una receta
 export const deleteRecipe = (id) => async (dispatch) => {
   try {
     await axios.delete(`http://localhost:3001/recipes/${id}`);
-    dispatch({ type: DELETE_RECIPE, payload: id }); // Envía el ID de la receta eliminada
-    dispatch(getRecipes()); // Actualiza la lista de recetas después de eliminar
+    dispatch({ type: DELETE_RECIPE, payload: id }); 
+    dispatch(getRecipes()); 
   } catch (error) {
     console.error('Error deleting recipe:', error);
   }
 };
 
-// Acción para filtrar recetas por dieta
 export const setDietFilter = (diet) => ({
   type: SET_DIET_FILTER,
   payload: diet,
 });
 
-// Acción para filtrar recetas por origen (api o db)
 export const setOriginFilter = (origin) => ({
   type: SET_ORIGIN_FILTER,
   payload: origin,
 });
 
-// Acción para cambiar la opción de ordenamiento
 export const setSortOption = (option) => ({
   type: SET_SORT_OPTION,
   payload: option,

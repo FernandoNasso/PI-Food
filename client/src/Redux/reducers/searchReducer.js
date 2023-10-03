@@ -1,4 +1,3 @@
-// searchReducer.js
 import { SEARCH_RECIPES } from '../actions/actionTypes';
 
 const initialState = [];

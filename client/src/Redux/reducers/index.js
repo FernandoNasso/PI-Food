@@ -1,4 +1,3 @@
-//Redux/reducers/index.js
 import { combineReducers } from 'redux';
 import recipeReducer from './recipeReducer';
 import dietReducer from './dietReducer';

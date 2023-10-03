@@ -28,7 +28,6 @@ const RecipeForm = () => {
   const handleDietChange = (e) => {
     const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
   
-    // Si la opción ya estaba seleccionada, la deseleccionamos; si no, la seleccionamos
     const updatedSelectedDiets = formData.selectedDiets.includes(selectedOptions[0])
       ? formData.selectedDiets.filter((diet) => diet !== selectedOptions[0])
       : [...formData.selectedDiets, selectedOptions[0]];
@@ -40,7 +39,7 @@ const RecipeForm = () => {
   };  
 
   const handleHealthScoreChange = (e) => {
-    const score = Math.min(Math.max(0, e.target.value), 100); // Limita el valor entre 0 y 100
+    const score = Math.min(Math.max(0, e.target.value), 100);
     setFormData((prevData) => ({
       ...prevData,
       healthScore: score,
@@ -51,7 +50,6 @@ const RecipeForm = () => {
     e.preventDefault();
 
     try {
-      // Dispatch para crear la receta
       await dispatch(createRecipe({ ...formData }));
       // Restablecer el formulario después de la creación:
       setFormData({
@@ -63,11 +61,9 @@ const RecipeForm = () => {
         steps: '',
         selectedDiets: [],
       });
-      // Mostrar un mensaje de éxito
       setShowNotification({ type: 'success', message: 'Receta creada con éxito' });
     } catch (error) {
       console.error('Error creating recipe:', error);
-      // Mostrar un mensaje de error
       setShowNotification({ type: 'error', message: 'Error al crear la receta' });
     }
   };

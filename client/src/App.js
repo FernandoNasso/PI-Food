@@ -10,13 +10,11 @@ import SearchResults from './views/searchResults/searchResults.component';
 import { getRecipes } from './Redux/actions/recipeActions'; 
 
 function App() {
-  const [recipes, setRecipes] = useState([]); //Creamos un estado local 'recipes' con useState
+  const [recipes, setRecipes] = useState([]); 
   useEffect(() => {
     async function fetchData() {
       try {
-        // Obtenemos recetas usando Redux
         const recipesResponse = await store.dispatch(getRecipes());
-         // Actualizamos los estados locales con las respuestas
         setRecipes(recipesResponse);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -24,7 +22,7 @@ function App() {
     }
 
     fetchData();
-  }, []); // Array de dependencias vacío indica que el efecto se ejecuta solo después del montaje inicial
+  }, []); 
   
   return (
     <Provider store={store}> 

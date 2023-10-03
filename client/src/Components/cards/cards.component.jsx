@@ -1,13 +1,12 @@
-import React from 'react'; // Importa la biblioteca React
-import Card from '../card/card.component'; // Importa el componente Card
-import './cards.styles.css'; // Importa los estilos CSS específicos para las tarjetas
+import React from 'react';
+import Card from '../card/card.component'; 
+import './cards.styles.css'; 
 
 const Cards = (props) => {
      const {recipes} = props
-     console.log(recipes)
   return (
-    <div className="cards-container"> {/* Define un contenedor para las tarjetas */}
-      {recipes.map(({ id, name, diets, image }) => { // Mapea y renderiza las tarjetas de recetas
+    <div className="cards-container"> 
+      {recipes.map(({ id, name, diets, image }) => { 
       
         return (
           <Card
@@ -23,7 +22,7 @@ const Cards = (props) => {
   );
 };
 
-export default Cards; // Exporta el componente Cards para su uso en otros lugares
+export default Cards; 
 
 
 

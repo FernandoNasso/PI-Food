@@ -34,27 +34,24 @@ const Home = () => {
 
     let filteredRecipes = [...recipes.recipes];  // Creamos una copia de las recetas para filtrar y ordenar
 
-    // Aplicar filtro por dieta
     if (dietFilter) {
       filteredRecipes = filteredRecipes.filter((recipe) => recipe.diets.includes(dietFilter));
     }
 
-    // Aplicar filtro por origen
     if (originFilter) {
       const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
       
       filteredRecipes = filteredRecipes.filter((recipe) => {
         if (originFilter === "db_recipes" && recipe.id && uuidPattern.test(recipe.id)) {
-          return true; // Mis Recetas (con UUID)
+          return true; 
         } else if (originFilter === "api_recipes" && recipe.id && !uuidPattern.test(recipe.id)) {
-          return true; // Más Recetas (sin UUID)
+          return true; 
         }
         
         return false;
       });
     }
 
-    // Aplicar ordenamiento
     if (sortOption === 'alphabetical') {
       filteredRecipes.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortOption === 'reverseAlphabetical') {
@@ -101,7 +98,6 @@ const Home = () => {
     <div className="home-container"> 
       <Navbar />
       <div className="filter-options">
-        {/* Selector de filtro de dieta */}
         <select value={dietFilter} onChange={(e) => handleDietFilterChange(e.target.value)}>
           <option value="">Selecciona un tipo de dieta</option>
           {diets.map((diet) => (
@@ -111,7 +107,6 @@ const Home = () => {
           ))}
         </select>
   
-        {/* Selector de filtro de origen */}
         <select value={originFilter} onChange={(e) => handleOriginFilterChange(e.target.value)}>
           <option value="">Selecciona un origen</option>
           {origins.map((origin) => (
@@ -121,7 +116,6 @@ const Home = () => {
           ))}
         </select>
   
-        {/* Selector de ordenamiento */}
         <select value={sortOption} onChange={(e) => handleSortOptionChange(e.target.value)}>
         <option value="">Selecciona una opción de orden</option>
         <option value="alphabetical">Order (A-Z)</option>

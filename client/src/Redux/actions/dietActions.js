@@ -1,4 +1,3 @@
-// dietActions.js
 import axios from 'axios';
 import { GET_DIETS } from '../actions/actionTypes';
 

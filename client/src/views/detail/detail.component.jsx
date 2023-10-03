@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import './detail.styles.css'; // Importa el CSS
+import './detail.styles.css'; 
 
 function Detail() {
   const [recipe, setRecipe] = useState(null);
